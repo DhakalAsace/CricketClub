@@ -1,0 +1,141 @@
+﻿@{
+
+    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).FirstOrDefault()?.value;
+
+    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).FirstOrDefault()?.value;
+
+    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).FirstOrDefault()?.value;
+
+    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).FirstOrDefault()?.value;
+
+    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).FirstOrDefault()?.value;
+
+    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).FirstOrDefault()?.value;
+
+    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).FirstOrDefault()?.value;
+
+    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).FirstOrDefault()?.value;
+
+    var youtubeUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getYoutubeKey).FirstOrDefault()?.value;
+
+    var companyDescription = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getCompanyShortDescriptionKey).FirstOrDefault()?.value;
+
+
+
+}
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> Localizer
+<!-- start footer section -->
+
+
+
+
+<footer id="footer" class="footer-2">
+    <!-- Footer Top-->
+    <div class="top-footer">
+
+        <!-- Logo Footer-->
+        <div class="col-lg-12">
+            <div class="logo-footer">
+                <h2>@orgName</h2>
+            </div>
+        </div>
+        <!-- End Logo Footer-->
+        <!-- Social Icons-->
+        <ul class="social">
+            <li>
+                <div>
+                    <a href="@facebookUrl" class="facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="@TwitterUrl" class="twitter-icon">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <a href="@youtubeUrl" class="youtube">
+                        <i class="fa fa-youtube"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!-- End Social Icons-->
+    </div>
+    <!-- End Footer Top-->
+    <!-- Links Footer-->
+    <div class="links-footer">
+        <div class="container">
+            <div class="row">
+
+                <!-- Column Links -->
+                <div class="col-lg-6">
+                    <div class="info-links">
+                        <h3 class="text-white">@orgName</h3>
+
+                        @if (address != null)
+                        {<p style="color:white;"><i class="fa fa-map-marker" aria-hidden="true"></i> <a> @address</a> </p>}
+                        @if (email != null)
+                        {<p style="color:white;"> <i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:@email" style="color:white;"> @email </a></p>}
+                        @if (contactNo != null)
+                        {<p style="color:white;"><i class="fa fa-phone" aria-hidden="true"></i> @contactNo</p>}
+                        <a href="https://goo.gl/maps/uAvWhMsZtR5aw1WWA" target="_blank"> <p style="color:white" class="mt-0"> <i class="fa fa-location-arrow" aria-hidden="true"></i> Find us on Google Map.</p></a>
+                    </div>
+
+                </div>
+
+                <!-- End Column Links -->
+                <!-- Column Links -->
+                <div class="col-lg-3">
+                    <div class="info-links" style="padding-left:30px;">
+                        <h5>Quick Links</h5>
+                        <ul class="columns">
+                            <li><a href="/gallery">Gallery</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/notice">Notice</a></li>
+                            <li><a href="/players">Players</a></li>
+                            <li><a href="/contact">Contact</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="footer-wiz">
+                        <h5 class="footer-wiz-title">@Localizer["Facebook"]</h5>
+                        <div class="fb-page"
+                             data-href="@facebookUrl"
+                             data-width="450"
+                             data-hide-cover="false"
+                             data-show-facepile="true"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Column Links -->
+
+        </div>
+    </div>
+    <!-- End Links Footer-->
+    <!-- footer Down-->
+    <div class="footer-down">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2022 Boston Cricket . All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer Down-->
+</footer>
+
+

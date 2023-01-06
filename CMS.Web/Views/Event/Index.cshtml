@@ -1,0 +1,101 @@
+﻿@model List<CMS.Core.Entity.Event>
+@{
+    ViewData["Title"] = "Events";
+}
+@{
+    string getImage(string file_name)
+    {
+        var extension = System.IO.Path.GetExtension(file_name).ToLower();
+
+        var imageFormats = new[] { ".jpeg", ".png", ".jpg" };
+
+        var docFormats = new[] { ".xls", ".xlsx" };
+
+        var pdfFormats = new[] { ".pdf" };
+
+        var powerPointFormats = new[] { ".ppt", ".pptx" };
+
+        if (imageFormats.Contains(extension))
+        {
+            return "/images/custom/" + file_name;
+        }
+
+        if (docFormats.Contains(extension))
+        {
+            return "/images/doc.png";
+        }
+
+        if (pdfFormats.Contains(extension))
+        {
+            return "/images/pdf.png";
+        }
+
+        return "/images/ppt.png";
+    }
+}
+<style>
+    .inner_banner_section {
+        background-image: url(../clientside/images/inner_page_banner.jpg);
+    }
+</style>
+
+
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h2>Events</h2>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Events</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="padding-bottom">
+    <div class="container">
+        <div class="row padding-top">
+            @{ foreach (var events in Model)
+                {
+
+                    <div class="col-md-6 col-xl-4">
+                        @{ var imgSrc = "/images/";
+                            if (string.IsNullOrWhiteSpace(events.image_name))
+                            {
+                                imgSrc = "/img/Id.png";
+                            }
+                            else
+                            {
+                                imgSrc += "custom/" + events.image_name;
+                            } }
+                        <a href="~/event/detail/@events.slug#">
+                            <div class="item-boxed-img"  style="margin-bottom:30px;">
+                                <i class="fa fa-soccer-ball-o"> </i>
+                                <img src="@imgSrc" alt="image" style="height:250px; width:100%;">
+
+                                <h4>@events.title</h4>
+                                <p>@events.event_from_date.ToString("dd / MMM")</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 50px;"></div>
+
+
+
+
+

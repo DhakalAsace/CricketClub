@@ -1,0 +1,103 @@
+﻿@model List<CMS.Core.Entity.Blog>
+@{
+    ViewData["Title"] = "Blogs";
+}
+@{
+
+    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).SingleOrDefault()?.value;
+
+    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).SingleOrDefault()?.value;
+
+    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).SingleOrDefault()?.value;
+
+    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).SingleOrDefault()?.value;
+
+    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).SingleOrDefault()?.value;
+
+    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).SingleOrDefault()?.value;
+
+    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).SingleOrDefault()?.value;
+
+    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).SingleOrDefault()?.value;
+
+    var companyDescription = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getCompanyShortDescriptionKey).SingleOrDefault()?.value;
+
+}
+
+
+
+
+<style>
+    .inner_banner_section {
+        background-image: url(/clientside/images/inner_page_banner.jpg);
+    }
+</style>
+<!-- ******CONTENT****** -->
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h1 class="page-title">Blog</h1>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Blog</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="dark-section paddings-big">
+    <div class="scale">
+        <div class="skewmask-block"></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 padding-top">
+                <h2>LATEST BLOG</h2>
+            </div>
+
+            <div class="col-lg-7" style="background-color:white; padding-top:20px;">
+                <div class="row">
+                    @foreach (var blog in Model)
+                    {
+                        var imgSrc = "/images/";
+                        if (string.IsNullOrWhiteSpace(blog.image_name))
+                        {
+                            imgSrc = "img/Id.png";
+                         
+                        }
+                        else
+                        {
+                            imgSrc += "custom/" + blog.image_name;
+
+                        }
+                        <div class="col-md-6 col-xl-4">
+                            <a href="/blog/detail/@blog.slug">
+                                <div class="item-boxed-img small" style="padding-top: 10px;">
+
+                                    <img src="@imgSrc" alt="#" style="height:200px;width:100%; ">
+
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

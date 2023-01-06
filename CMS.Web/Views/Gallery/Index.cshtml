@@ -1,0 +1,87 @@
+﻿@model CMS.Web.ViewModels.GalleryViewModel
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<style>
+    .inner_banner_section {
+        background-image: url(../clientside/images/inner_page_banner.jpg);
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h2>Gallery</h2>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Gallery</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcroumbs end -->
+<!--Items Club News -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="clear-title">Latest Images</h3>
+        </div>
+        @{ foreach (var gallery in Model.gallery)
+            {
+                var image = gallery.gallery_images.ToList().Where(a => a.is_default == true).Select(a => a.image_name).FirstOrDefault();
+                var title = gallery.name.ToLower();
+                title = title.Replace(" ", "-");
+
+
+                <!--Item Club News -->
+                <div class="col-lg-6 col-xl-4" style="padding:30px 50px;">
+                    <!-- Widget Text-->
+                    <div class="panel-box">
+                        <div class="titles no-margin">
+                            <h4><a href="/gallery/gallery-img/@gallery.gallery_id">@gallery.name.ToUpperInvariant()</a></h4>
+                        </div>
+                        @{ if (image == null)
+                            {
+                                <a href="/gallery/gallery-img/@gallery.gallery_id"><img alt="img" src="~/img/Id.png"></a> }
+                            else
+                            {
+                                <a href="/gallery/gallery-img/@gallery.gallery_id"><img alt="img" src="~/images/custom/@image" style="height:200px; width:100%;"></a>
+                            } }
+
+                        @{
+                            if (gallery.description != null)
+                            {
+                                <div class="row">
+                                    <div class="info-panel">
+                                        <h4><a href="/gallery/gallery-img/@gallery.gallery_id">@gallery.description.ToUpperInvariant()</a></h4>
+
+
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                    <!-- End Widget Text-->
+                </div>
+                <!--End Item Club News -->
+            }
+        }
+
+    </div>
+</div>
+<!--End Items Club News -->

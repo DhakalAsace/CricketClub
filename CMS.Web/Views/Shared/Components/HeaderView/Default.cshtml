@@ -1,0 +1,256 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> Localizer
+
+@{ var list = new List<SelectListItem>() {
+new SelectListItem { Text = "Male", Value = CMS.Core.Enums.PlayerProfile.Male.ToString()},
+new SelectListItem { Text = "Female", Value = CMS.Core.Enums.PlayerProfile.Female.ToString()},
+
+}; }
+
+
+
+                @{
+
+                    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+                    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).FirstOrDefault()?.value;
+
+                    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).FirstOrDefault()?.value;
+
+                    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).FirstOrDefault()?.value;
+
+                    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).FirstOrDefault()?.value;
+
+                    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).FirstOrDefault()?.value;
+
+                    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).FirstOrDefault()?.value;
+
+                    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).FirstOrDefault()?.value;
+
+                    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).FirstOrDefault()?.value;
+
+                    var youtubeUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getYoutubeKey).FirstOrDefault()?.value;
+                }
+
+                <style>
+                    ul {
+                        display: block;
+                        list-style-type: disc;
+                        margin-block-start: 1em;
+                        margin-block-end: 1em;
+                        margin-inline-start: 0px;
+                        margin-inline-end: 0px;
+                        padding-inline-start: 0px;
+                    }
+                </style>
+                <!-- Header-->
+                <header class="header-2">
+                    <!-- End headerbox-->
+                    <div class="headerbox">
+                        <div class="container">
+                            <div class="row justify-content-between align-items-center">
+                                <!-- Logo-->
+                                <div class="col col-xl-2">
+                                    <div class="logo">
+                                        <a href="/" title="Return Home">
+                             <img src="~/images/Id.png" alt="Logo" class="logo_img" style="height:100px; width:110px;"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- End Logo-->
+                                <!-- Adds nav-->
+                                <div class="col col-xl-10">
+                                    <!-- Call Nav Menu-->
+                                    <a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
+                                    <!-- End Call Nav Menu-->
+                                    <!-- mainmenu-->
+                                    <nav class="mainmenu">
+                                        <div class="">
+                                            <!-- Menu-->
+                                            <ul class="sf-menu" id="menu">
+                                                <li class="current">
+                                                    <a href="/" style="color:black;">Home</a>
+
+                                                </li>
+
+                                                @*<li class="current">
+                                                        <a href="teams.html">Teams</a>
+                                                        <ul class="sub-current">
+                                                            <li>
+                                                                <a href="teams.html">Teams List</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="single-team.html">Single Team</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>*@
+
+                                                @{foreach (var pageCat in (List<CMS.Core.Entity.PageCategory>)ViewBag.pageCategories)
+                                                    {
+                                                        <li class="current">
+                                                            <a href="#">@pageCat.name</a>
+                                                            @{ var associatedPages = pageCat.pages;
+                                                                <ul class="sub-current">
+                                                                    @foreach (var pages in associatedPages.Where(i => i.is_enabled == true).ToList())
+                                                                    {
+                                                                        <li>
+                                                                            <a href="/page/@pages.slug">@pages.title</a>
+
+                                                                        </li>
+                                                                    }
+
+                                                                </ul> }
+                                                        </li>
+                                                                } }
+
+
+                                                <li>
+                                                    <a href="/gallery">Gallery</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/blog">Blog</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="/notice">Notice</a>
+                                                </li>
+                                         @*  // <li>
+                                                   // <a href="/event">Events</a>
+
+                                               // </li>*@
+                                             
+
+
+
+                                                <li class="current">
+                                                    <a href="/players">Players</a>
+                                                    <ul class="sub-current">
+                                                        @{foreach (var players in ViewBag.playerProfile)
+                                                            {
+
+                                                                string name = "";
+                                                                if (players == CMS.Core.Enums.PlayerProfile.Male)
+                                                                {
+                                                                    name = "Male";
+                                                                }
+                                                                if (players == CMS.Core.Enums.PlayerProfile.Female)
+                                                                {
+                                                                    name = "Female";
+                                                                }
+
+
+                                                                <li>
+                                                                 <a href="/players/player-detail/@name">@name</a>
+                                                                </li>
+                                                                }
+                                                            }
+                                                            </ul>
+
+
+                                                </li>
+
+
+                                                <li>
+                                                    <a href="/contact">Contact</a>
+                                                </li>
+
+                                            </ul>
+                                            <!-- End Menu-->
+                                        </div>
+                                    </nav>
+                                    <!-- End mainmenu-->
+                                    <div id="mobile-nav" style="margin-top:100px;">
+                                        <!-- Menu-->
+                                        <ul>
+                                            <li class="current">
+                                                <a href="/" style="color:black;">Home</a>
+
+                                            </li>
+
+                                            @*<li class="current">
+            <a href="teams.html">Teams</a>
+            <ul class="sub-current">
+                <li>
+                    <a href="teams.html">Teams List</a>
+                </li>
+                <li>
+                    <a href="single-team.html">Single Team</a>
+                </li>
+            </ul>
+        </li>*@
+
+                                            @{foreach (var pageCat in (List<CMS.Core.Entity.PageCategory>)ViewBag.pageCategories)
+                                                {
+                                                    <li class="current">
+                                                        <a href="#">@pageCat.name</a>
+                                                        @{ var associatedPages = pageCat.pages;
+                                                            <ul class="sub-current">
+                                                                @foreach (var pages in associatedPages.Where(i => i.is_enabled == true).ToList())
+                                                                {
+                                                                    <li>
+                                                                        <a href="/page/@pages.slug">@pages.title</a>
+
+                                                                    </li>
+                                                                }
+
+                                                            </ul> }
+                                                    </li>
+                                                } }
+
+
+                                            <li>
+                                                <a href="/gallery">Gallery</a>
+                                            </li>
+                                            <li>
+                                                <a href="/blog">Blog</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/notice">Notice</a>
+                                            </li>
+                                            <li>
+                                                <a href="/event">Events</a>
+
+                                            </li>
+                                            <li class="current">
+                                                <a href="/players">Players</a>
+                                                <ul class="sub-current">
+                                                    @{foreach (var players in ViewBag.playerProfile)
+                                                        {
+
+                                                            string name = "";
+                                                            if (players == CMS.Core.Enums.PlayerProfile.Male)
+                                                            {
+                                                                name = "Male";
+                                                            }
+                                                            if (players == CMS.Core.Enums.PlayerProfile.Female)
+                                                            {
+                                                                name = "Female";
+                                                            }
+
+
+                                                            <li>
+                                                                <a href="/players/player-detail/@players">@name</a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+
+
+                                            </li>
+                                            <li>
+                                                <a href="/contact">Contact</a>
+                                            </li>
+
+                                        </ul>
+                                        <!-- End Menu-->
+                                    </div>
+                                </div>
+                                <!-- End nav Header-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End headerbox-->
+                </header>
+                <!-- End Header-->
+

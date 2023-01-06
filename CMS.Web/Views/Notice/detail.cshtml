@@ -1,0 +1,129 @@
+﻿@model CMS.Core.Entity.Notice
+@{
+    var detail = Model;
+    ViewData["Title"] = detail.title;
+
+}
+
+@{
+
+    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).SingleOrDefault()?.value;
+
+    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).SingleOrDefault()?.value;
+
+    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).SingleOrDefault()?.value;
+
+    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).SingleOrDefault()?.value;
+
+    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).SingleOrDefault()?.value;
+
+    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).SingleOrDefault()?.value;
+
+    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).SingleOrDefault()?.value;
+
+    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).SingleOrDefault()?.value;
+
+    var companyDescription = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getCompanyShortDescriptionKey).SingleOrDefault()?.value;
+
+
+
+}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f22836a0984abd4"></script>
+<style>
+    .inner_banner_section {
+        background-image: url(../clientside/images/inner_page_banner.jpg);
+    }
+</style>
+
+
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h2>Notice</h2>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Notice</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin-top: 50px;"></div>
+
+
+<section class="content-info">
+
+    <div class="container paddings-mini">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <!-- Content Text-->
+                <div class="panel-box">
+                    <div class="titles">
+                        <h4>Notice</h4>
+                    </div>
+
+                    <!-- Post Item -->
+                    <div class="post-item">
+                        <div class="row">
+                            @{
+                                var imgSrc = "/images/";
+                                if (string.IsNullOrWhiteSpace(detail.image_name))
+                                {
+                                    imgSrc = "/img/Id.png";
+                                }
+                                else
+                                {
+                                    imgSrc += "custom/" + detail.image_name;
+                                }
+                            }
+                            <div class="col-md-4">
+                                <div class="img-hover">
+                                    <img src="@imgSrc" alt="" class="img-responsive" style="height:200px; width:100%;">
+
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="heading3-border text-uppercase">@detail.title.ToUpperInvariant()</h3>
+                                <p>@detail.notice_date.ToString("dd, MMMM yyyy")</p>
+
+                                
+
+                                <p class="no-margin-bottom"> @detail.description</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Post Item -->
+
+                </div>
+                <!-- End Content Text-->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="margin-top: 50px;"></div>

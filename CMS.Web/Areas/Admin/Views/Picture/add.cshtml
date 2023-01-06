@@ -1,0 +1,246 @@
+﻿@model CMS.Web.Areas.Core.Models.PictureModel
+@{
+    ViewData["Title"] = "Picture";
+}
+
+<div class="page-breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="/admin">Home</a>
+        </li>
+        <li>
+            Picture
+        </li>
+    </ul>
+</div>
+
+<div class="page-body">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <div class="widget radius-bordered">
+                        <div class="widget-header">
+                            <span class="widget-caption">Picture</span>
+                        </div>
+                        <div class="widget-body">
+                            <form class="form-horizontal" method="post" action="/admin/picture/new" enctype="multipart/form-data">
+
+
+
+
+                                @Html.AntiForgeryToken()
+
+
+
+                                @Html.ValidationSummary(true)
+                                <div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.title, "Name", new { @class = "col-md-3 control-label" })
+
+                                    <div class="col-md-9">
+
+
+
+                                        @Html.TextBoxFor(a => a.title, new { @class = "form-control" })
+
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+
+                                <div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.image_name, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        <input type="file" value="Choose File" name="file" id="file" />
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                                @*<div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.image1, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        <input type="file" value="Choose File" name="fileOne" id="fileOne" />
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                                <div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.image2, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        <input type="file" value="Choose File" name="fileTwo" id="fileTwo" />
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                                <div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.image3, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        <input type="file" value="Choose File" name="fileThree" id="fileThree" />
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                                <div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.image4, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        <input type="file" value="Choose File" name="fileFour" id="fileFour" />
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                                <div class="form-group row">
+
+
+
+                                    @Html.LabelFor(a => a.image5, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        <input type="file" value="Choose File" name="fileFive" id="fileFive" />
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>*@
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input class="btn btn-palegreen pull-right" type="submit" value="Save" style="background-color:#2dc3e8" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-lg-offset-2  images-list" id="previewImg">
+                    <img id="image" class="image-preview" src="#" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .image-preview {
+        height: 250px;
+        width: 250px;
+        float: right;
+    }
+</style>
+
+
+
+
+
+@section scripts{
+    <script>
+
+        $("#file").change(function () {
+            readURL(this);
+        });
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        }
+        //$("#fileOne").change(function () {
+        //    readFileOneURL(this);
+        //});
+
+        //function readFileOneURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+        //$("#fileTwo").change(function () {
+        //    readFileTwoURL(this);
+        //});
+
+        //function readFileTwoURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+        //$("#fileThree").change(function () {
+        //    readFileThreeURL(this);
+        //});
+
+        //function readFileThreeURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+        //$("#fileFour").change(function () {
+        //    readFileFourURL(this);
+        //});
+
+        //function readFileFourURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+        //$("#fileFive").change(function () {
+        //    readFileFiveURL(this);
+        //});
+
+        //function readFileFiveURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+    </script>
+}

@@ -1,0 +1,224 @@
+﻿@model CMS.Core.Entity.PlayerProfile
+@{
+    var detail = Model;
+    ViewData["Title"] = detail.name;
+}
+@{
+    var list = new List<SelectListItem>()
+{
+      new SelectListItem{Text="Batsman",Value=CMS.Core.Enums.Role.Batsman.ToString()},
+        new SelectListItem{Text="Batting AllRounder",Value=CMS.Core.Enums.Role.Batting_All_Rounder.ToString()},
+        new SelectListItem{Text="Bowler",Value=CMS.Core.Enums.Role.Bowler.ToString()},
+        new SelectListItem{Text="Bowling AllRounder",Value=CMS.Core.Enums.Role.Bowling_All_Rounder.ToString()},
+         new SelectListItem{Text="Batsman",Value=CMS.Core.Enums.Status.Playing.ToString()},
+        new SelectListItem{Text="Batting AllRounder",Value=CMS.Core.Enums.Status.Not_Playing.ToString()},
+}; }
+
+@{
+
+    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).SingleOrDefault()?.value;
+
+    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).SingleOrDefault()?.value;
+
+    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).SingleOrDefault()?.value;
+
+    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).SingleOrDefault()?.value;
+
+    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).SingleOrDefault()?.value;
+
+    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).SingleOrDefault()?.value;
+
+    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).SingleOrDefault()?.value;
+
+    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).SingleOrDefault()?.value;
+
+    var companyDescription = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getCompanyShortDescriptionKey).SingleOrDefault()?.value;
+
+
+}
+
+
+<style>
+    .inner_banner_section {
+        background-image: url(../clientside/images/inner_page_banner.jpg);
+    }
+</style>
+
+
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h2>Players</h2>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Players</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content-info">
+
+    <!-- Single Team Tabs -->
+    <div class="single-player-tabs">
+        <div class="container">
+            <div class="row">
+                <!-- Side info single team-->
+                <div class="col-lg-4 col-xl-3" style="padding-bottom:10%;">
+                    @{ 
+                        string name = "";
+                        string namep = "";
+                        if (detail.role == CMS.Core.Enums.Role.Batting_All_Rounder)
+                        {
+                            name = "Bating All Rounder";
+                        }
+                        if (detail.role == CMS.Core.Enums.Role.Bowling_All_Rounder)
+                        {
+                            name = "Bowling All Rounder";
+                        }
+                        if (detail.role == CMS.Core.Enums.Role.Batsman)
+                        {
+                            name = "Batsman";
+                        }
+                        if (detail.role == CMS.Core.Enums.Role.Bowler)
+                        {
+                            name = "Bowler";
+                        }
+                        if (detail.status == CMS.Core.Enums.Status.Not_Playing)
+                        {
+                            namep = "Not Playing";
+                        }
+                        if (detail.status == CMS.Core.Enums.Status.Playing)
+                        {
+                            namep = "Playing";
+                        }
+
+                    }
+                    <div class="item-player single-player" id="image">
+                        <div class="col-lg-6 col-md-12">
+                            @{
+                                var imgSrc = "/images/";
+                                if (string.IsNullOrWhiteSpace(detail.image))
+                                {
+                                    imgSrc = "/img/Id.png";
+                                }
+                                else
+                                {
+                                    imgSrc += "custom/" + detail.image;
+                                }
+                            }
+                           
+                                <img src="@imgSrc" style="max-width:390px;">
+                          
+                        </div>
+                        <div class="info-player">
+
+                            <h4>
+                                @detail.name
+                                
+                            </h4>
+                            <ul>
+                                
+                                <li><strong>Role:</strong> <span>@name</span></li>
+                                <li><strong>Status:</strong> <span>@namep</span></li>
+                                <li><strong>Gender:</strong> <span>@detail.playerProfile</span></li>
+                                <li><strong>Birth Place:</strong> <span>@detail.birth_place</span></li>
+                                <li><strong>Height:</strong> <span>@detail.height</span></li>
+                                <li><strong>Carrier Info:</strong> <span>@detail.carrier_info</span></li>
+
+
+
+                            </ul>
+
+                            <h6>Follow @detail.name</h6>
+
+                            <ul class="social-player">
+                                <li>
+                                    <div>
+                                        <a href="@detail.fb_url" target="_blank" class="facebook">
+                                            
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+</div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <a href="@detail.web_url"  target="_blank" class="twitter-icon">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <a href="@detail.youtube_url"  target="_blank" class="youtube">
+                                            <i class="fa fa-youtube"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Attack -->
+                    <!-- End Attack -->
+                </div>
+                <!-- end Side info single team-->
+
+                <div class="col-lg-8 col-xl-9">
+                    <!-- Nav Tabs -->
+                    <!-- End Nav Tabs -->
+                    <!-- Content Tabs -->
+                    <div class="tab-content" style="padding-top:10%;">
+                        <!-- Tab One - overview -->
+                        <div class="tab-pane active" id="overview">
+
+                            <div class="panel-box padding-b">
+                                <div class="titles">
+                                    <h4>@detail.name</h4>
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="col-lg-12 col-xl-8">
+                                        @detail.description
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Items Club News -->
+                            <!--End Items Club News -->
+                            <!--Items Club video -->
+                            <!--End Items Club video -->
+                            <!--Sponsors CLub -->
+                            <!--End Sponsors CLub -->
+
+
+
+                        </div>
+                      
+
+                    </div>
+                    <!-- Content Tabs -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Single Team Tabs -->
+    <!-- Newsletter -->
+    <!-- End Newsletter -->
+</section>
+<style>
+    #image {
+        position: relative;
+        top: 150px;
+    }
+</style>

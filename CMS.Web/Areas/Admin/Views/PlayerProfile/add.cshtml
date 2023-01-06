@@ -1,0 +1,174 @@
+﻿@model CMS.Core.Dto.PlayerProfileDto
+@{
+    ViewData["Title"] = "New Player Profile";
+}
+<div class="page-breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="/admin">Home</a>
+        </li>
+        <li>
+            Player Profile
+        </li>
+    </ul>
+</div>
+
+<div class="page-body">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-10 col-sm-10 col-xs-10">
+                    <div class="widget radius-bordered">
+                        <div class="widget-header">
+                            <span class="widget-caption">Players Form</span>
+                        </div>
+                        <div class="widget-body">
+                            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+
+                                @Html.ValidationSummary(true)
+
+                                @Html.AntiForgeryToken()
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.name, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.name, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.name)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.birth_place, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.birth_place, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.birth_place)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.height, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.height, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.height)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.contact, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.contact, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.contact)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.fb_url, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.fb_url, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.fb_url)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.web_url, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.web_url, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.web_url)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.youtube_url, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.youtube_url, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.youtube_url)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.carrier_info, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.carrier_info, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.carrier_info)</p>
+                                    </div>
+                                </div>
+                                <div class=" form-group row ">
+                                    @Html.LabelFor(a => a.role, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("role", Html.GetEnumSelectList<CMS.Core.Enums.Role>(), "Select Category", new { @class = "form-control required", @name = "role", @id = "player_profile_id" })
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.role)</p>
+                                </div>
+                                <div class=" form-group row ">
+                                    @Html.LabelFor(a => a.playerProfile, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("playerProfile", Html.GetEnumSelectList<CMS.Core.Enums.PlayerProfile>(), "Select Category", new { @class = "form-control required", @name = "playerProfile", @id = "player_profile_id" })
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.playerProfile)</p>
+                                </div>
+                                <div class=" form-group row ">
+                                    @Html.LabelFor(a => a.status, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("status", Html.GetEnumSelectList<CMS.Core.Enums.Status>(), "Select Category", new { @class = "form-control required", @name = "status", @id = "player_profile_id" })
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.status)</p>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.description, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.description, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.description)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.image, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" name="file" id="file" />
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.image)</p>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input class="btn btn-palegreen pull-right" type="submit" value="Save" style="background-color:#2dc3e8" />
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 images-list" id="previewImg">
+                    <img id="image" class="image-preview" src="#" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .image-preview {
+        height: 150px;
+        width: 150px;
+        float: right;
+    }
+</style>
+@section scripts{
+    <script>
+
+        $("#file").change(function () {
+            readURL(this);
+        });
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
+}
+
+
+
+

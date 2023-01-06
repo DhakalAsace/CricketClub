@@ -1,0 +1,218 @@
+﻿@model  CMS.Web.Areas.Core.Models.PictureModel
+@{
+    ViewData["Title"] = "Update Picture";
+}
+
+<div class="page-breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="/admin">Home</a>
+        </li>
+        <li>
+            Update Picture
+        </li>
+    </ul>
+</div>
+<div class="page-body">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-10 col-sm-10 col-xs-10">
+                    <div class="widget radius-bordered">
+                        <div class="widget-header">
+                            <span class="widget-caption">Update Picture</span>
+                        </div>
+                        <div class="widget-body">
+                            <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/picture/edit">
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(a => a.picture_id)
+                                @Html.HiddenFor(a => a.is_male)
+                                @Html.HiddenFor(a => a.is_female)
+                                @Html.HiddenFor(a => a.is_enabled)
+                                @Html.HiddenFor(a => a.is_slider_image)
+
+                                @Html.AntiForgeryToken()
+
+                                @Html.HiddenFor(a => a.picture_id)
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.title, new { @class = "col-md-2 control-label asterik" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(a => a.title, new { @class = "form-control" })
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.title)</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.image_name, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" class="input-md form-control" name="file" id="file" />
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.image_name)</p>
+                                    </div>
+                                </div>
+                                @*<div class="form-group row">
+                                    @Html.LabelFor(a => a.image1, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" class="input-md form-control" name="fileOne" id="fileOne" />
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.image1)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.image2, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" class="input-md form-control" name="fileTwo" id="fileTwo" />
+                                        <p class="text-danger">@Html.ValidationMessageFor(a => a.image2)</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.image3, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" name="fileThree" id="fileThree" />
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.image3)</p>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.image4, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" name="fileFour" id="fileFour" />
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.image4)</p>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(a => a.image5, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        <input type="file" value="Choose File" name="fileFive" id="fileFive" />
+                                    </div>
+                                    <p class="text-danger">@Html.ValidationMessageFor(a => a.image5)</p>
+                                </div>*@
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input class="btn btn-palegreen pull-right" type="submit" value="Update" style="background-color:#2dc3e8" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 images-list" id="previewImg">
+                    <img id="image" class="image-preview" src="~/images/custom/@Model.image_name" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .image-preview {
+        height: 150px;
+        width: 150px;
+        float: right;
+    }
+</style>
+
+@section scripts{
+    <script>
+
+        $("#file").change(function () {
+            readURL(this);
+        });
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        }
+        //$("#fileOne").change(function () {
+        //    readFileOneURL(this);
+        //});
+
+        //function readFileOneURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+        //$("#fileTwo").change(function () {
+        //    readFileTwoURL(this);
+        //});
+
+        //function readFileTwoURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+        //$("#fileThree").change(function () {
+        //    readFileThreeURL(this);
+        //});
+
+        //function readFileThreeURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+        //$("#fileFour").change(function () {
+        //    readFileFourURL(this);
+        //});
+
+        //function readFileFourURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+        //$("#fileFive").change(function () {
+        //    readFileFiveURL(this);
+        //});
+
+        //function readFileFiveURL(input) {
+
+        //    if (input.files && input.files[0]) {
+        //        var reader = new FileReader();
+
+        //        reader.onload = function (e) {
+        //            $('#image').attr('src', e.target.result);
+        //        }
+        //        reader.readAsDataURL(input.files[0]);
+        //    }
+
+        //}
+
+    </script>
+}
+

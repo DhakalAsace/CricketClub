@@ -1,0 +1,129 @@
+﻿@model CMS.Web.ViewModels.PageDetail
+@{
+    var pages = Model;
+    ViewData["Title"] = pages.title.ToUpperInvariant();
+
+}
+
+@{
+
+    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).SingleOrDefault()?.value;
+
+    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).SingleOrDefault()?.value;
+
+    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).SingleOrDefault()?.value;
+
+    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).SingleOrDefault()?.value;
+
+    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).SingleOrDefault()?.value;
+
+    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).SingleOrDefault()?.value;
+
+    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).SingleOrDefault()?.value;
+
+    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).SingleOrDefault()?.value;
+
+    var companyDescription = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getCompanyShortDescriptionKey).SingleOrDefault()?.value;
+
+
+
+}
+
+@{
+    string getImage(string file_name)
+    {
+        var extension = System.IO.Path.GetExtension(file_name).ToLower();
+
+        var imageFormats = new[] { ".jpeg", ".png", ".jpg" };
+
+        var docFormats = new[] { ".xls", ".xlsx" };
+
+        var pdfFormats = new[] { ".pdf" };
+
+        var powerPointFormats = new[] { ".ppt", ".pptx" };
+
+        if (imageFormats.Contains(extension))
+        {
+            return "/images/custom/" + file_name;
+        }
+
+        if (docFormats.Contains(extension))
+        {
+            return "/images/doc.png";
+        }
+
+        if (pdfFormats.Contains(extension))
+        {
+            return "/images/pdf.png";
+        }
+
+        return "/images/ppt.png";
+    }
+}
+<style>
+    .inner_banner_section {
+        background-image: url(../clientside/images/inner_page_banner.jpg);
+    }
+    p {
+        overflow-x: hidden;
+    }
+</style>
+<!-- ******CONTENT****** -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f22836a0984abd4"></script>
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h1 class="page-title">About Us</h1>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">@pages.title</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section padding_layout_1"></div>
+<section class="bg-light-gray" style="padding:30px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="padding-30px-right">
+                    <h1 class="page-title"style="color:black;">@pages.title</h1>
+
+                    <p class="no-margin-bottom">@Html.Raw(pages.description)</p>
+                    <p>
+                        <div class="addthis_inline_share_toolbox"></div>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                @{
+                    var imgSrc = "/images/";
+                    if (string.IsNullOrWhiteSpace(pages.image_name))
+                    {
+                        imgSrc = "/img/Id.png";
+                    }
+                    else
+                    {
+                        imgSrc += "custom/" + pages.image_name;
+                    }
+                }
+                <div class="bg-img cover-background box-shadow-primary h-100" data-overlay-dark="0">
+                    <img src="@imgSrc" style="height:400px;width:100%;" />
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<div class="section padding_layout_1"></div>

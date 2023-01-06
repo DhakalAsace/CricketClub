@@ -1,0 +1,236 @@
+﻿@model CMS.Core.Dto.ReceivedEmailDto
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+@{
+    string lat = "26.644442", lon = "87.989753";
+
+    var setups = (List<CMS.Core.Entity.Setup>)ViewBag.setup;
+
+    var contactNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPhoneNumberKey).SingleOrDefault()?.value;
+
+    var orgName = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getOrganisationNameKey).SingleOrDefault()?.value;
+
+    var panNo = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getPanNumberKey).SingleOrDefault()?.value;
+
+    var email = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getEmailKey).SingleOrDefault()?.value;
+
+    var address = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getAddressKey).SingleOrDefault()?.value;
+
+    var facebookUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getFacebookKey).SingleOrDefault()?.value;
+
+    var instaUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getInstaKey).SingleOrDefault()?.value;
+
+    var TwitterUrl = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getTwitterKey).SingleOrDefault()?.value;
+
+    var location = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getLocationKey).SingleOrDefault()?.value;
+
+    var companyDescription = setups.Where(a => a.key == CMS.Web.Models.SetupKeys.getCompanyShortDescriptionKey).SingleOrDefault()?.value;
+
+
+    if (!String.IsNullOrEmpty(location))
+    {
+        lat = location.Split(',')[0];
+        lon = location.Split(',')[1];
+    }
+
+}
+
+<script>
+     function initMap() {
+             var uluru = {
+                 lat: @lat, lng: @lon
+             };
+                    var map = new google.maps.Map(document.getElementById('map'),{ zoom: 13, center: uluru });
+                    var marker = new google.maps.Marker({ position: uluru, map: map });
+    }
+
+</script>
+
+<div class="map_section">
+    <div id="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184552.30943582457!2d-79.37805805!3d43.7182412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1671225692027!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"> </iframe>
+
+    </div>
+</div>
+<!-- end map -->
+<!-- section -->
+<!-- end contact info section -->
+<!-- end map section -->
+
+
+
+
+<section class="content-info">
+
+    <div class="container">
+        <div class="row paddings-mini">
+            <!-- Left Content -->
+            <div class="col-md-4">
+                <aside class="panel-box">
+                    <div class="titles no-margin">
+                        <h4>The Office</h4>
+                    </div>
+                    <div class="info-panel">
+                        <address>
+                           
+                            <i class="fa fa-map-marker"></i><strong>Address: </strong> @address<br>
+                           
+                        </address>
+                    </div>
+                </aside>
+
+                <aside class="panel-box">
+                    <div class="titles no-margin">
+                        <h4>Emails Contact</h4>
+                    </div>
+                    <div class="info-panel">
+                        <address>
+                            <i class="fa fa-envelope"></i><strong>Email:</strong><a href="mailto:#" style="color:black;"> @email</a><br>
+                            
+                        </address>
+                    </div>
+                </aside>
+            </div>
+            <!-- End Left Content -->
+            <!-- Right Content -->
+            <div class="col-md-8">
+                <div class="panel-box">
+                    <div class="titles no-margin">
+                        <h4>Contact Form</h4>
+                    </div>
+                    <div class="info-panel">
+                        <!-- Form Contact -->
+                        <form action="/contact/send-mailcontact" method="post" id="contact-message-feedback-form">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Your name *</label>
+                                    @Html.TextBoxFor(a => a.first_name, new { @class = "form-control required", required = "required", placeholder = "Your First Name" })
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Your email address *</label>
+                                    @Html.TextBoxFor(a => a.sender_email, new { @class = "form-control required", required = "required", placeholder = "Your Email" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Subject *</label>
+                                    @Html.TextBoxFor(a => a.subject, new { @class = "form-control required", required = "required", placeholder = "Subject" })
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Comment *</label>
+                                    @Html.TextAreaFor(a => a.message, new { @class = "form-control", rows = "8", required = "required", placeholder = "Message" })
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Send Message" class="btn btn-lg btn-primary">
+                                </div>
+                            </div>
+                        </form>
+                        <!-- End Form Contact -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="result"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Right Content -->
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+    <!-- End Newsletter -->
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script>
+     function initMap() {
+             var uluru = {
+                 lat: @lat, lng: @lon
+             };
+                    var map = new google.maps.Map(document.getElementById('map'),{ zoom: 13, center: uluru });
+                    var marker = new google.maps.Marker({ position: uluru, map: map });
+    }
+
+</script>
+
+

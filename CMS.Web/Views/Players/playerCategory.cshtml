@@ -1,0 +1,126 @@
+﻿@model CMS.Web.ViewModels.PlayersIndexViewModel
+@{
+    ViewData["Title"] = "Players Category";
+}
+
+@*<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h2>Player Category</h2>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Player Category</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+    <!-- Hero Slider-->
+
+        @{
+            if (ViewBag.Images != null)
+            {
+                @foreach (var slider in ViewBag.Images)
+                {
+                    <div class="item-slider">
+                        <img src="~/images/custom/@slider.image_name" class="img-responsive" style="width:100%; height:auto;" />
+
+                    </div>
+                }
+
+            }
+
+        }
+        <!-- Item Slide-->
+ 
+    <!-- End Hero Slider-->
+   
+
+
+
+<div class="container padding-top">
+    <div class="row portfolioContainer">
+
+        @foreach (var players in Model.players)
+        {
+
+            string name = "";
+            string namep = "";
+            if (players.role == CMS.Core.Enums.Role.Batting_All_Rounder)
+            {
+                name = "Bating All Rounder";
+            }
+            if (players.role == CMS.Core.Enums.Role.Bowling_All_Rounder)
+            {
+                name = "Bowling All Rounder";
+            }
+            if (players.role == CMS.Core.Enums.Role.Batsman)
+            {
+                name = "Batsman";
+            }
+            if (players.role == CMS.Core.Enums.Role.Bowler)
+            {
+                name = "Bowler";
+            }
+            if (players.status == CMS.Core.Enums.Status.Not_Playing)
+            {
+                namep = "Not Playing";
+            }
+            if (players.status == CMS.Core.Enums.Status.Playing)
+            {
+                namep = "Playing";
+            }
+
+
+
+
+            <!-- Item Player -->
+            <div class="col-xl-3 col-lg-4 col-md-6 forward" style="padding-bottom:50px;">
+                <div class="item-player">
+                    <div class="head-player">
+                        @{
+                            var imgSrc = "/images/";
+                            if (string.IsNullOrWhiteSpace(players.image))
+                            {
+                                imgSrc = "/img/Id.png";
+                            }
+                            else
+                            {
+                                imgSrc += "custom/" + players.image;
+                            }
+                        }
+                        <img class="img-responsive" src="@imgSrc" style="width: 100%; height:200px;;">
+
+
+                    </div>
+                    <div class="info-player">
+
+                        <h4>
+                            @players.name
+                            <span>@name</span>
+                        </h4>
+                        <ul>
+                            <li>
+                                <strong>Status:</strong> <span>@namep </span>
+                            </li>
+                            <li><strong>Height:</strong> <span>@players.height</span></li>
+                            <li><strong>Gender:</strong> <span>@players.playerProfile</span></li>
+                            @*--playerProfile here is gender*@
+                        </ul>
+                    </div>
+                    <a href="/players/detail/@players.slug" class="btn">View Player <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
